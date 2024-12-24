@@ -1,10 +1,10 @@
 {
     "modules":
     {
-        "<pluginName>":
+        "propertyListing":
         {
             "entry": [
-                "<entry>/index"
+                "PLIMain/index"
             ],
             "active": true,
             "installed": false,
