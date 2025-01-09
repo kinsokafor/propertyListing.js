@@ -37,24 +37,21 @@ watchEffect(() => {
 </script>
 
 <style lang="scss" scoped>
-// .testimonial-block {
-//     width: 100%;
-//     max-width: 348px;
-//     // background: var(--highlight1);
-//     border-radius: 14px;
-//     overflow: hidden;
-// }
-// .data {
-//     display: flex;
-//     flex-direction: column;
-//     justify-content: center;
-//     align-items: center;
-//     position: relative;
-//     top: -50px;
-// }
+.testimonial-block {
+    margin-left: 0px;
+    margin-right: 0px;
+    border-radius: 20px;
+}
+
 .data img {
     height: 100px;
     border-radius: 50%;
     border: 10px solid #afb4c7c9;
 }
+
+// @media (max-width: 992px) {
+//     .testimonial-block {
+        
+//     }
+// }
 </style>
