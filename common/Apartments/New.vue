@@ -7,7 +7,9 @@
                     <CreateForm :fields="fields" 
                         :initial-values="{}"
                         @submit="handleSubmit"
-                        :processing="processing">
+                        :processing="processing"
+                        :columns="{top: 1, topAfter: 2, middle: 3}"
+                        :initialValues="{rooms: 1, bathrooms: 1}">
                     </CreateForm>
                 </div>
             </div>
@@ -36,7 +38,8 @@
             label: "Description",
             name: "description",
             rules: yup.string().required(),
-            as: "wysiwyg"
+            as: "wysiwyg",
+            position:"bottom"
         },
         {
             label: "Location",
@@ -49,12 +52,36 @@
             label: "Price",
             name: "price",
             rules: yup.number().min(0),
-            placeholder: "Enter price in Naira"
+            placeholder: "Enter price in Naira",
+            position: "topAfter"
         },
         {
             label: "Duration",
             name: "duration",
-            rules: yup.string().required()
+            rules: yup.string().required(),
+            position: "topAfter",
+            column: "right"
+        },
+        {
+            label: "Rooms",
+            name: "rooms",
+            rules: yup.number(),
+            position: "middle",
+            column: "left"
+        },
+        {
+            label: "Bathrooms",
+            name: "bathrooms",
+            rules: yup.number(),
+            position: "middle",
+            column: "center"
+        },
+        {
+            label: "Size",
+            name: "size",
+            rules: yup.string(),
+            position: "middle",
+            column: "right"
         },
         {
             label: "Images",
@@ -62,7 +89,8 @@
             as: "filepond",
             acceptedFileTypes: ['image/jpg', 'image/jpeg', 'image/png'],
             rules: yup.array().required(),
-            allowMultiple: true
+            allowMultiple: true,
+            position: "middleAfter"
         }
     ])
 

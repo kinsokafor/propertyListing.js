@@ -1,5 +1,6 @@
 import MyApartments from './Apartments/MyApartments.vue'
 import New from './Apartments/New.vue'
+import {common as customers} from './customers'
 
 export default [
     {
@@ -13,5 +14,6 @@ export default [
         name: 'MyApartments',
         component: MyApartments,
         meta: { title: "My Apartments" }
-    }
+    },
+    ...customers
 ]
