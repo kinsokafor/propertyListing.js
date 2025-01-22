@@ -2,6 +2,7 @@ import { createRouter, createWebHashHistory } from 'vue-router'
 import NotFound from '@/components/NotFound.vue'
 import Dashboard from '../views/Dashboard.vue'
 import admin from '../../common/admin';
+import owners from '../../common/owners';
 
 const router = createRouter({
     history: createWebHashHistory(),
@@ -17,7 +18,8 @@ const router = createRouter({
             component: Dashboard,
             meta: { title: "Dashboard" }
         },
-        ...admin
+        ...admin,
+        ...owners
     ]
 });
 

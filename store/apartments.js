@@ -22,7 +22,8 @@ export const useApartmentsStore = defineStore('useApartmentsStore', {
             }
             this.fetching = true;
             this.processing = true;
-            await this.dbtable.get('apartments', {
+            const req = new Request;
+            await req.get(req.root+'/listing-api/apartments', {
                 limit: this.limit,
                 offset: this.offset,
                 order: 'asc',
@@ -57,6 +58,14 @@ export const useApartmentsStore = defineStore('useApartmentsStore', {
         add(data) {
             const req = new Request();
             return req.post(req.root+"/listing-api/apartments/new", data).then(r => {
+                this.data = updateStoreDataSingle(this.data, r.data)
+                return r
+            })
+        },
+        
+        update(id, data) {
+            const req = new Request();
+            return req.post(req.root+"/listing-api/apartments/edit/"+id, data).then(r => {
                 this.data = updateStoreDataSingle(this.data, r.data)
                 return r
             })

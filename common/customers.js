@@ -1,12 +1,7 @@
-import ApartmentDetails from "./Apartments/ApartmentDetails.vue"
+import {common as publicRoutes} from './public'
 
 export const common = [
-    {
-        path: '/apartment/:id',
-        name: 'ApartmentDetails',
-        component: ApartmentDetails,
-        meta: { title: "Apartment Details" }
-    }
+    ...publicRoutes
 ]
 
 export default [

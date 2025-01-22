@@ -5,11 +5,11 @@
                 <div class="card-body">
                     <h5 class="card-title">New Apartment</h5>
                     <CreateForm :fields="fields" 
-                        :initial-values="{}"
                         @submit="handleSubmit"
                         :processing="processing"
                         :columns="{top: 1, topAfter: 2, middle: 3}"
-                        :initialValues="{rooms: 1, bathrooms: 1}">
+                        :initialValues="{rooms: 1, bathrooms: 1}"
+                        @values="v => values = v">
                     </CreateForm>
                 </div>
             </div>
@@ -27,6 +27,7 @@
     const processing = ref(false)
     const alertStore = useAlertStore()
     const apartmentsStore = useApartmentsStore()
+    const values = ref({})
 
     const fields = computed(() => [
         {
@@ -51,16 +52,10 @@
         {
             label: "Price",
             name: "price",
-            rules: yup.number().min(0),
-            placeholder: "Enter price in Naira",
-            position: "topAfter"
-        },
-        {
-            label: "Duration",
-            name: "duration",
-            rules: yup.string().required(),
-            position: "topAfter",
-            column: "right"
+            rules: yup.number().min(0).required(),
+            placeholder: "Enter price",
+            position: "top",
+            as: "currency"
         },
         {
             label: "Rooms",

@@ -1,7 +1,7 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import NotFound from '@/components/NotFound.vue'
 import Dashboard from '../views/Dashboard.vue'
-import owners from '../../common/owners';
+import routes from '../../common/public'
 
 const router = createRouter({
     history: createWebHashHistory(),
@@ -17,7 +17,7 @@ const router = createRouter({
             component: Dashboard,
             meta: { title: "Dashboard" }
         },
-        ...owners
+        ...routes
     ]
 });
 

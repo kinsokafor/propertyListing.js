@@ -11,8 +11,8 @@
     <div class="row">
       <div class="col-xl-4">
         <div class="contact mb-24">
-            <h2 class="fw-5 fs-23 color-dark-2 font-sec mb-16">Book Apartment</h2>
-            <book-apartment></book-apartment>
+          <h2 class="fw-5 fs-23 color-dark-2 font-sec mb-16">Book Apartment</h2>
+          <book-apartment :data="data"></book-apartment>
         </div>
         <div class="col-xl-12">
           <div class="detail bg-gray radius-10 mb-24 text-center pt-32">
@@ -44,25 +44,27 @@
         <div class="house-detail">
           <h2 class="st-2">Details</h2>
           <ul class="list-unstyled">
-            <li><img src="assets/media/icon/bed.png" alt="" />2 Bed Rooms</li>
-            <li><img src="assets/media/icon/toom.png" alt="" />2 Bath Rooms</li>
-            <li><img src="assets/media/icon/scale.png" alt="" />200 sq. ft.</li>
-            <li>
-              <img src="assets/media/icon/brick-wall.png" alt="" />Year Build
-              2014
+            <li><img :src="bed" alt="" />{{ data.rooms }} Bed Rooms</li>
+            <li><img :src="tooms" alt="" />{{ data.bathrooms }} Bath Rooms</li>
+            <li><img :src="scale" alt="" />{{ data.size }} sq. ft.</li>
+            <li v-if="authStore.hasAccess([12])">
+                <router-link
+                  :to="`/apartment/edit/${data.id}`"
+                  class="btn btn-primary"
+                  >Edit Apartment</router-link
+                >
             </li>
-            <li><img src="assets/media/icon/garage.png" alt="" />Garages</li>
-            <li><img src="assets/media/icon/home.png" alt="" />Type House</li>
+            <!-- <li><img src="assets/media/icon/garage.png" alt="" />Garages</li>
+            <li><img src="assets/media/icon/home.png" alt="" />Type House</li> -->
           </ul>
         </div>
         <div class="house-detail">
           <h2 class="mb-16">Overview</h2>
-          <p class="mb-0" v-html="data.description">
-          </p>
+          <p class="mb-0" v-html="data.description"></p>
         </div>
         <div class="house-detail">
           <h2 class="mb-16">Location</h2>
-          <span class="mb-16">{{data.location}}</span>
+          <span class="mb-16">{{ data.location }}</span>
           <!-- <div class="map-responsive">
             <iframe
               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3168.6395364528967!2d-122.08626633780452!3d37.421994070413874!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x808fba02425dad8f%3A0x6c296c66619367e0!2sGoogleplex!5e0!3m2!1sen!2ske!4v1585314748051!5m2!1sen!2ske"
@@ -387,9 +389,14 @@ import BookApartment from "@module/propertyListing/components/BookApartment.vue"
 import { computed } from "vue";
 import { useApartmentsStore } from "@module/propertyListing/store/apartments";
 import { useRoute } from "vue-router";
-import GetFullname from '@theme/GetFullname.vue'
+import GetFullname from "@theme/GetFullname.vue";
+import bed from "@module/propertyListing/assets/icon/bed.png";
+import tooms from "@module/propertyListing/assets/icon/toom.png";
+import scale from "@module/propertyListing/assets/icon/scale.png";
+import { useAuthStore } from '@/store/auth';
 
 const apartmentsStore = useApartmentsStore();
+const authStore = useAuthStore();
 const route = useRoute();
 
 const data = computed(

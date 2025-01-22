@@ -15,15 +15,15 @@
       <ul class="list-unstyled">
         <li>
           <img :src="bed" alt="" />
-          6 Beds
+          {{data.rooms}} Rooms
         </li>
         <li>
           <img :src="bathroom" alt="" />
-          2 Baths
+          {{data.bathrooms}} Baths
         </li>
         <li>
           <img :src="size" alt="" />
-          200 sqft
+          {{data.size}}
         </li>
       </ul>
       <slot>
