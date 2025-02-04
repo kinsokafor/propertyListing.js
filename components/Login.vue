@@ -1,74 +1,71 @@
 <template>
-    <div class="row justify-content-around">
-        <div class="col-md-7">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Heading</h5>
-                    <CreateForm :fields="fields" 
-                        :initial-values="{}"
-                        @submit="handleSubmit"
-                        :processing="processing">
-                    </CreateForm>
-                </div>
-            </div>
-        </div>
-    </div>
+  <div>{{ link }}
+    You are not signed in. Login below:
+  </div>
+  <CreateForm
+    :fields="fields"
+    :initial-values="{}"
+    @submit="handleSubmit"
+    :processing="processing"
+  >
+  <template #submitButton>
+    <button type="submit" class="form-btn">Login</button>
+  </template>
+  </CreateForm>
+  <hr>
+  <div>
+    <a href="javaScript:void(0)" @click.prevent="state = 'registration'"
+      ><strong>CREATE</strong> a new account.</a> if you don't have an account yet.
+  </div>
 </template>
 
 <script setup>
-    import { computed, ref } from 'vue'
-    import CreateForm from '@/components/form/CreateForm.vue'
-    import * as yup from 'yup'
-    import {Request} from '@/helpers'
-    import {useAlertStore} from '@/store/alert'
+import { computed, ref, inject } from "vue";
+import CreateForm from "@/components/form/CreateForm.vue";
+import * as yup from "yup";
+import { Request } from "@/helpers";
+import { useAlertStore } from "@/store/alert";
 
-    const req = new Request();
-    const processing = ref(false)
-    const alertStore = useAlertStore()
+const req = new Request();
+const processing = ref(false);
+const alertStore = useAlertStore();
+const state = inject("state", "login");
 
-    const fields = computed(() => [
-        {
-            label: "Name",
-            name: "fullname"
-        },
-        {
-            label: "File uploader",
-            name: "file_uploader",
-            as: "filepond",
-            acceptedFileTypes: ['image/*'],
-            rules: yup.string().required(),
-            allowMultiple: false
-        },
-        {
-            label: "Croppie Uploader",
-            name: "croppie_uploader",
-            as: "croppie",
-            column: "right",
-            "viewport": {
-                width: 200,
-                height: 200
-            },
-            "boundary": {
-                width: 210,
-                height: 210
-            },
-            showZoomer: true
-        }
-    ])
+const fields = computed(() => [
+  {
+    label: "Email",
+    placeholder: "Email",
+    name: "email",
+    rules: yup.mixed().required(),
+  },
+  {
+    label: "Password",
+    placeholder: "Password",
+    name: "password",
+    as: "password",
+    rules: yup.mixed().required(),
+  },
+]);
 
-    const handleSubmit = (data, actions) => {
-        processing.value = true;
-        req.post(req.root+"/end-point", data).then(r => {
-            processing.value = false
-            actions.resetForm()
-            alertStore.add("Done")
-        }).catch(e => {
-            processing.value = false;
-            alertStore.add(e.response.data, "danger");
-        })
-    }
+const handleSubmit = async (data, actions) => {
+  processing.value = true;
+  await req
+    .post(req.root + "/api/login", data)
+    .then((r) => {
+      processing.value = false;
+      actions.resetForm();
+      alertStore.add("Done");
+      // window.location.reload()
+    })
+    .catch((e) => {
+      processing.value = false;
+      alertStore.add(e.response.data, "danger");
+    });
+};
 </script>
 
 <style lang="scss" scoped>
-
+a {
+  color: var(--red);
+}
 </style>

@@ -1,11 +1,16 @@
 <template>
-    <div>
-        You are not signed in. Login below or <a href="javaScript:void(0)" @click.prevent="form = 'signup'">Create a new account</a>
-    </div>
+    <login v-if="state === 'login'"></login>
+    <registration v-else></registration>
 </template>
 
 <script setup>
+    import {ref, provide} from 'vue'
+    import Login from './Login.vue';
+    import Registration from './Registration.vue';
 
+    const state = ref('login')
+
+    provide('state', state)
 </script>
 
 <style lang="scss" scoped>

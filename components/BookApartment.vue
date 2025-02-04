@@ -1,5 +1,5 @@
 <template>
-
+{{ values }}
   <CreateForm
     :fields="fields"
     :initial-values="{}"
@@ -7,6 +7,7 @@
     :processing="processing"
     @values="v => values = v"
     v-if="authStore.hasAccess([1,2,3,4,5,6,7,8,9])"
+    :initialValues="{date: '2025-02-25 to 2025-02-27'}"
   >
   <template #submitButton>
     <div class="reservation-details">
@@ -69,10 +70,12 @@ const fields = computed(() => [
   {
     label: "Select Dates",
     name: "date",
-    as: "daterange",
+    as: "date",
     rules: yup.string().required(),
     minDate: today.value,
-    dateFormat: dateFormat
+    // dateFormat: dateFormat
+    dateFormat: "Y-m-d",
+    mode: "range"
   }
 ]);
 
