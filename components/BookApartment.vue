@@ -71,7 +71,6 @@ const fields = computed(() => [
     as: "date",
     rules: yup.string().required(),
     minDate: today.value,
-    // dateFormat: dateFormat
     dateFormat: "Y-m-d",
     mode: "range",
     disable: unavailableDates.value
