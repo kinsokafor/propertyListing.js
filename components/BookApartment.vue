@@ -1,5 +1,4 @@
 <template>
-{{ values }}
   <CreateForm
     :fields="fields"
     :initial-values="{}"
@@ -7,7 +6,6 @@
     :processing="processing"
     @values="v => values = v"
     v-if="authStore.hasAccess([1,2,3,4,5,6,7,8,9])"
-    :initialValues="{date: '2025-02-25 to 2025-02-27'}"
   >
   <template #submitButton>
     <div class="reservation-details">
@@ -75,7 +73,8 @@ const fields = computed(() => [
     minDate: today.value,
     // dateFormat: dateFormat
     dateFormat: "Y-m-d",
-    mode: "range"
+    mode: "range",
+    disable: unavailableDates.value
   }
 ]);
 
@@ -88,6 +87,7 @@ const handleSubmit = (data, actions) => {
       processing.value = false;
       actions.resetForm();
       alertStore.add("Done");
+      fetchUnavalableDates();
     })
     .catch((e) => {
       processing.value = false;
@@ -97,8 +97,12 @@ const handleSubmit = (data, actions) => {
 
 watchEffect(() => {
   if(props.data?.id === undefined) return
+  fetchUnavalableDates();
+})
+
+async function fetchUnavalableDates() {
   processing.value = true;
-  req
+  await req
     .post(req.root + "/listing-api/apartments/unavailable-dates", {apartment_id: props.data.id})
     .then((r) => {
       processing.value = false;
@@ -107,14 +111,6 @@ watchEffect(() => {
     .catch((e) => {
       processing.value = false;
     });
-})
-
-function dateFormat(classes, date) {
-  if (!classes.disabled) {
-    const index = unavailableDates.value.findIndex(i => i === formatDate(date, "YYYY-MM-DD"))
-    classes.disabled = index !== -1
-  }
-  return classes
 }
 </script>
 

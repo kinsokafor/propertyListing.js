@@ -1,5 +1,5 @@
 <template>
-  <div>{{ link }}
+  <div>
     You are not signed in. Login below:
   </div>
   <CreateForm
