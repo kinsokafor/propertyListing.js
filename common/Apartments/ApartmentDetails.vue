@@ -191,195 +191,11 @@
             </div>
           </div>
         </div> -->
-        <div class="house-detail">
-          <h2 class="mb-16">(3 Reviews)</h2>
-          <div class="review border-0 mb-32">
-            <div
-              class="d-flex align-items-center justify-content-between mb-16"
-            >
-              <div class="user">
-                <img src="assets/media/user/img-8.png" alt="" />
-                <div class="content">
-                  <h4>Sarah M</h4>
-                  <p>May 10, 2023</p>
-                </div>
-              </div>
-              <div class="stars">
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-              </div>
-            </div>
-            <p>
-              "My family and I have been living in Forest Heights Homes for the
-              past 2 years and we absolutely love it here. The community is safe
-              and welcoming, and the amenities are top-notch. The management
-              team is also very responsive and helpful."
-            </p>
-          </div>
-          <div class="review border-0 mb-32">
-            <div
-              class="d-flex align-items-center justify-content-between mb-16"
-            >
-              <div class="user">
-                <img src="assets/media/user/img-9.png" alt="" />
-                <div class="content">
-                  <h4>John D</h4>
-                  <p>May 12, 2023</p>
-                </div>
-              </div>
-              <div class="stars">
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-              </div>
-            </div>
-            <p>
-              "I had a great experience renting a home in Forest Heights. The
-              property was well-maintained, and the leasing process was easy and
-              straightforward. I highly recommend Forest Heights Homes for
-              anyone looking for a comfortable and convenient place to live."
-            </p>
-          </div>
-          <div class="review border-0 mb-0">
-            <div
-              class="d-flex align-items-center justify-content-between mb-16"
-            >
-              <div class="user">
-                <img src="assets/media/user/img-10.png" alt="" />
-                <div class="content">
-                  <h4>Emily P</h4>
-                  <p>May 14, 2023</p>
-                </div>
-              </div>
-              <div class="stars">
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-              </div>
-            </div>
-            <p class="mb-0">
-              "I recently purchased a home in Forest Heights and couldn't be
-              happier with my decision. The community is peaceful, the homes are
-              beautiful, and the location is unbeatable. Highly recommend!"
-            </p>
-          </div>
-        </div>
-        <div class="house-detail">
-          <h2>add a Review</h2>
-          <div class="d-flex align-items-center">
-            <div class="user">
-              <h6 class="pe-3">Rating</h6>
-            </div>
-            <div class="form-group">
-              <fieldset>
-                <span class="star-cb-group">
-                  <input
-                    type="radio"
-                    id="rating-5"
-                    name="rating"
-                    value="5"
-                  /><label for="rating-5">5</label>
-                  <input
-                    type="radio"
-                    id="rating-4"
-                    name="rating"
-                    value="4"
-                  /><label for="rating-4">4</label>
-                  <input
-                    type="radio"
-                    id="rating-3"
-                    name="rating"
-                    value="3"
-                  /><label for="rating-3">3</label>
-                  <input
-                    type="radio"
-                    id="rating-2"
-                    name="rating"
-                    value="2"
-                  /><label for="rating-2">2</label>
-                  <input
-                    type="radio"
-                    id="rating-1"
-                    name="rating"
-                    value="1"
-                    checked="checked"
-                  /><label for="rating-1">1</label>
-                  <input
-                    type="radio"
-                    id="rating-0"
-                    name="rating"
-                    value="0"
-                    class="star-cb-clear"
-                  /><label for="rating-0">0</label>
-                </span>
-              </fieldset>
-            </div>
-          </div>
-          <form
-            method="post"
-            action="./properties-detail.html"
-            class="rev-form"
-          >
-            <div class="row">
-              <div class="col-lg-6 col-12">
-                <div class="form-group mb-16">
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="name"
-                    name="name"
-                    required=""
-                    placeholder="Your Name"
-                  />
-                </div>
-              </div>
-              <div class="col-lg-6 col-12">
-                <div class="form-group mb-16">
-                  <input
-                    type="email"
-                    class="form-control"
-                    id="email"
-                    name="email"
-                    required=""
-                    placeholder="Your Email"
-                  />
-                </div>
-              </div>
-
-              <div class="col-12">
-                <div class="formGroup mb-16">
-                  <input type="checkbox" id="keepcheck" />
-                  <label for="keepcheck"
-                    >Keep me posted via email for future comments on this
-                    website.</label
-                  >
-                </div>
-              </div>
-              <div class="col-12">
-                <div class="form-group mb-16">
-                  <textarea
-                    class="form-control"
-                    required=""
-                    name="message"
-                    placeholder="Review"
-                  ></textarea>
-                </div>
-              </div>
-            </div>
-            <button type="submit" class="form-btn">Submit Review</button>
-            <!-- Alert Message -->
-            <div id="message" class="alert-msg"></div>
-          </form>
-        </div>
+        <reviews v-if="data.id !== undefined" :content-id="data.id" content-type="apartment"></reviews>
+        <review-form v-if="data.id !== undefined" :content-id="data.id" content-type="apartment"></review-form>
       </div>
     </div>
+    <view-hook :content-id="data.id" content-type="apartment"></view-hook>
   </div>
 </template>
 
@@ -394,6 +210,9 @@ import bed from "@module/propertyListing/assets/icon/bed.png";
 import tooms from "@module/propertyListing/assets/icon/toom.png";
 import scale from "@module/propertyListing/assets/icon/scale.png";
 import { useAuthStore } from '@/store/auth';
+import ViewHook from "@module/propertyListing/components/ViewHook.vue";
+import ReviewForm from "@module/propertyListing/components/ReviewForm.vue";
+import Reviews from "@module/propertyListing/components/Reviews.vue";
 
 const apartmentsStore = useApartmentsStore();
 const authStore = useAuthStore();

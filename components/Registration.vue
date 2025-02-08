@@ -26,10 +26,12 @@ import CreateForm from "@/components/form/CreateForm.vue";
 import * as yup from "yup";
 import { Request } from "@/helpers";
 import { useAlertStore } from "@/store/alert";
+import { useAuthStore } from "@/store/auth";
 
 const req = new Request();
 const processing = ref(false);
 const alertStore = useAlertStore();
+const authStore = useAuthStore();
 const state = inject("state", "login");
 
 const fields = computed(() => [
@@ -53,7 +55,7 @@ const fields = computed(() => [
       .string()
       .required("Phone number is required")
       .matches(
-        /^\+?[1-9]\d{1,14}$/,
+        /^(\+?[1-9]\d{1,3}|[0])\d{7,10}$/,
         'Phone number must be valid and include only digits, optionally starting with a "+" for the country code'
       ),
   },
@@ -70,7 +72,7 @@ const fields = computed(() => [
       .string()
       .required("Password is required")
       .matches(
-        /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/,
+        /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@#$%^&*_]{6,}$/,
         "Password must be at least 6 characters long and contain both letters and numbers"
       ),
   },
@@ -87,6 +89,7 @@ const handleSubmit = async (data, actions) => {
     data.other_names = other_names.join(" ");
   }
   delete data.fullname
+  data.status = "active";
   processing.value = true;
   await req
     .post(req.root + "/listing-api/accounts/registration", data)
@@ -102,8 +105,7 @@ const handleSubmit = async (data, actions) => {
 
 const login = async (email, password) => {
   processing.value = true;
-  await req
-    .post(req.root + "/api/login", {email: email, password: password})
+  await authStore.login({email: email, password: password})
     .then((r) => {
       processing.value = false;
       actions.resetForm();

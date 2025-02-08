@@ -25,10 +25,12 @@ import CreateForm from "@/components/form/CreateForm.vue";
 import * as yup from "yup";
 import { Request } from "@/helpers";
 import { useAlertStore } from "@/store/alert";
+import { useAuthStore } from "@/store/auth";
 
 const req = new Request();
 const processing = ref(false);
 const alertStore = useAlertStore();
+const authStore = useAuthStore();
 const state = inject("state", "login");
 
 const fields = computed(() => [
@@ -49,13 +51,10 @@ const fields = computed(() => [
 
 const handleSubmit = async (data, actions) => {
   processing.value = true;
-  await req
-    .post(req.root + "/api/login", data)
-    .then((r) => {
+  await authStore.login(data).then((r) => {
       processing.value = false;
       actions.resetForm();
       alertStore.add("Done");
-      // window.location.reload()
     })
     .catch((e) => {
       processing.value = false;
