@@ -95,6 +95,14 @@ const fields = computed(() => [
     allowMultiple: true,
     position: "middleAfter",
   },
+  {
+    label: "Video",
+    name: "video",
+    as: "filepond",
+    acceptedFileTypes: ["video/mp4", "video/mpeg"],
+    allowMultiple: false,
+    position: "middleAfter",
+  }
 ]);
 
 const handleSubmit = (data, actions) => {

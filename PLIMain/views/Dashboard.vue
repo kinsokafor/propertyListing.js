@@ -35,7 +35,7 @@
               Discover a hassle-free way to buy, sell, or rent your dream
               property with our all-in-one real estate solution.
             </p>
-            <a href="/apartment/new" class="real-btn bordered text-capitalize"
+            <a href="#/property/new" class="real-btn bordered text-capitalize"
               >List a property</a
             >
           </div>

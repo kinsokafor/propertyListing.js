@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import { dbTable, storeGetter, updateStoreDataSingle, updateStoreData } from '@/helpers';
+import { dbTable, storeGetter, updateStoreDataSingle, updateStoreData, Request } from '@/helpers';
 import _ from 'lodash';
 
 export const usePropertiesStore = defineStore('usePropertiesStore', {
@@ -22,7 +22,8 @@ export const usePropertiesStore = defineStore('usePropertiesStore', {
             }
             this.fetching = true;
             this.processing = true;
-            await this.dbtable.get('properties', {
+            const req = new Request;
+            await req.get(req.root+'/listing-api/properties', {
                 limit: this.limit,
                 offset: this.offset,
                 order: 'asc',
@@ -51,6 +52,22 @@ export const usePropertiesStore = defineStore('usePropertiesStore', {
                     }
                 }
                 
+            })
+        },
+        
+        add(data) {
+            const req = new Request();
+            return req.post(req.root+"/listing-api/properties/new", data).then(r => {
+                this.data = updateStoreDataSingle(this.data, r.data)
+                return r
+            })
+        },
+        
+        update(id, data) {
+            const req = new Request();
+            return req.post(req.root+"/listing-api/properties/edit/"+id, data).then(r => {
+                this.data = updateStoreDataSingle(this.data, r.data)
+                return r
             })
         },
 

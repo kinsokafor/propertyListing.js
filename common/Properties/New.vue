@@ -3,12 +3,12 @@
         <div class="col-md-7">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">New Apartment</h5>
+                    <h5 class="card-title">New Property</h5>
                     <CreateForm :fields="fields" 
                         @submit="handleSubmit"
                         :processing="processing"
                         :columns="{top: 1, topAfter: 2, middle: 3}"
-                        :initialValues="{rooms: 1, bathrooms: 1}"
+                        :initialValues="{}"
                         @values="v => values = v">
                     </CreateForm>
                 </div>
@@ -22,16 +22,16 @@
     import CreateForm from '@/components/form/CreateForm.vue'
     import * as yup from 'yup'
     import {useAlertStore} from '@/store/alert'
-    import { useApartmentsStore } from '@module/propertyListing/store/apartments'
+    import { usePropertiesStore } from '@module/propertyListing/store/properties'
 
     const processing = ref(false)
     const alertStore = useAlertStore()
-    const apartmentsStore = useApartmentsStore()
+    const propertiesStore = usePropertiesStore()
     const values = ref({})
 
     const fields = computed(() => [
         {
-            label: "Name of apartment",
+            label: "Name of property",
             name: "name",
             rules: yup.string().required()
         },
@@ -56,20 +56,6 @@
             placeholder: "Enter price",
             position: "top",
             as: "currency"
-        },
-        {
-            label: "Rooms",
-            name: "rooms",
-            rules: yup.number(),
-            position: "middle",
-            column: "left"
-        },
-        {
-            label: "Bathrooms",
-            name: "bathrooms",
-            rules: yup.number(),
-            position: "middle",
-            column: "center"
         },
         {
             label: "Size",
@@ -99,7 +85,7 @@
 
     const handleSubmit = (data, actions) => {
         processing.value = true;
-        apartmentsStore.add(data).then(r => {
+        propertiesStore.add(data).then(r => {
             processing.value = false
             actions.resetForm()
             alertStore.add("Done")
