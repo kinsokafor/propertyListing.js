@@ -27,14 +27,16 @@ import * as yup from "yup";
 import { useAlertStore } from "@/store/alert";
 import { useApartmentsStore } from "@module/propertyListing/store/apartments";
 import { useRoute } from "vue-router";
+import { EvoUId } from '@/helpers'
 
+const evouid = new EvoUId()
 const processing = ref(false);
 const alertStore = useAlertStore();
 const apartmentsStore = useApartmentsStore();
 const values = ref({});
 const route = useRoute();
 const data = computed(
-  () => apartmentsStore.get({ id: route.params.id })[0] ?? {}
+  () => apartmentsStore.get({ id: evouid.decode(route.params.id) })[0] ?? {}
 );
 
 const fields = computed(() => [
@@ -108,7 +110,7 @@ const fields = computed(() => [
 const handleSubmit = (data, actions) => {
   processing.value = true;
   apartmentsStore
-    .update(route.params.id, data)
+    .update(evouid.decode(route.params.id), data)
     .then((r) => {
       processing.value = false;
       alertStore.add("Done");

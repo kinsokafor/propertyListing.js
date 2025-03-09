@@ -1,68 +1,89 @@
 <template>
-    <swiper-container>
-      <swiper-slide v-for="image in images" :key="image">
-        <div class="image-container" :style="{ backgroundImage: `url(${image})` }"></div>
-      </swiper-slide>
-    </swiper-container>
-  </template>
-  
-  <script setup>
-  import { register } from 'swiper/element/bundle';
-  import { onMounted } from 'vue';
-  import { Navigation, Pagination } from 'swiper/modules';
-  
-  // Register Swiper custom elements globally
-  register();
-  
-  const props = defineProps({
-    images: {
-      type: Array,
-      required: true,
-    },
-  });
-  
-  onMounted(() => {
-    const swiperEl = document.querySelector('swiper-container');
-  
-    // Swiper configuration
-    const swiperParams = {
-      slidesPerView: 1,
-      slidesPerGroup: 1,
-      loop: true,
-      autoplay: {
-        delay: 3000, // Delay between slides (in milliseconds)
-        disableOnInteraction: false, // Continue autoplay after user interaction
-      },
-      modules: [Navigation, Pagination],
-      breakpoints: {
-        1024: {
-          slidesPerView: 2,
-          slidesPerGroup: 1,
-        },
-      },
-      on: {
-        init() {
-          console.log('Swiper initialized with autoplay!');
-        },
-      },
-    };
-  
-    // Assign parameters and initialize Swiper
-    Object.assign(swiperEl, swiperParams);
-    swiperEl.initialize();
+  <div class="house-detail-slider">
+    <div class="item" v-for="image in images" :key="image">
+      <img
+        :src="image"
+        class="radius-10 mb-24"
+        alt=""
+      />
+    </div>
+  </div>
+  <div class="house-detail-slider-nav mb-64">
+    <div class="item" v-for="image in images" :key="image">
+      <img
+        :src="image"
+        class="radius-10 mb-24"
+        alt=""
+      />
+    </div>
+  </div>
+</template>
 
-    // Force autoplay to start
-  setTimeout(() => {
-    swiperEl.swiper.autoplay?.start();
-  }, 500);
+<script setup>
+import { onMounted } from "vue";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import $ from "jquery";
+import "slick-carousel";
+
+const props = defineProps({
+  images: {
+    type: Array,
+    required: true,
+  },
+});
+
+onMounted(() => {
+  $(".house-detail-slider").slick({
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    arrows: false,
+    fade: true,
+    asNavFor: ".house-detail-slider-nav",
   });
-  </script>
-  
-  <style lang="scss" scoped>
-  .image-container {
-    height: 300px;
-    background-size: cover;
-    background-position: center center;
-  }
-  </style>
-  
+
+  $(".house-detail-slider-nav").slick({
+    slidesToShow: 4,
+    slidesToScroll: 1,
+    asNavFor: ".house-detail-slider",
+    dots: false,
+    arrows: false,
+    centerMode: false,
+    focusOnSelect: true,
+    responsive: [
+      {
+        breakpoint: 990,
+        settings: {
+          arrows: false,
+        },
+      },
+      {
+        breakpoint: 768,
+        settings: {
+          arrows: false,
+          slidesToShow: 2,
+        },
+      },
+    ],
+  });
+});
+</script>
+
+<style lang="scss" scoped>
+.house-detail-slider img,
+.house-detail-slider-nav img {
+  width: 100%; /* Ensures the image fills the container */
+  object-fit: cover; /* Crop and fill without distortion */
+  border-radius: 10px; /* Maintain your existing styling */
+}
+
+.house-detail-slider img {
+  height: 100vh; /* Set a fixed height or use `vh` based on your design */
+  max-height: 530px;
+}
+
+.house-detail-slider-nav img {
+  height: 20vh; /* Set a fixed height or use `vh` based on your design */
+  max-height: 120px;
+}
+</style>

@@ -1,4 +1,4 @@
 {
-  "prod": "swiper",
+  "prod": "slick-carousel jquery",
   "dev": ""
 }

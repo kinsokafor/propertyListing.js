@@ -8,7 +8,7 @@
         />
         <span class="color-dark-3 bg-white position-absolute">{{data.price}}<sup>/{{ data.duration }}</sup></span>
       </div>
-      <a :href="`#/apartment/${data.id}`" class="title-text"
+      <a :href="`#/apartment/${id}`" class="title-text"
         >{{data.name}}</a
       >
       <p>{{data.location}}</p>
@@ -27,7 +27,7 @@
         </li>
       </ul>
       <slot>
-        <a :href="`#/apartment/${data.id}`" class="real-btn bordered mb-24">Details</a>
+        <a :href="`#/apartment/${id}`" class="real-btn bordered mb-24">Details</a>
       </slot>
     </div>
   </div>
@@ -37,10 +37,16 @@
 import bed from "@module/propertyListing/assets/svg/bed.svg";
 import bathroom from "@module/propertyListing/assets/svg/bathroom.svg";
 import size from "@module/propertyListing/assets/svg/size.svg";
+import { EvoUId } from '@/helpers'
+import { computed } from "vue";
+
+const evouid = new EvoUId()
 
 const props = defineProps({
     data: Object
 })
+
+const id = computed(() => evouid.encode(props.data.id))
 </script>
 
 <style lang="scss" scoped></style>

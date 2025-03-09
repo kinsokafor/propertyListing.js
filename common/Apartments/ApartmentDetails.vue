@@ -49,7 +49,7 @@
             <li><img :src="scale" alt="" />{{ data.size }} sq. ft.</li>
             <li v-if="authStore.hasAccess([12])">
                 <router-link
-                  :to="`/apartment/edit/${data.id}`"
+                  :to="`/apartment/edit/${route.params.id}`"
                   class="btn btn-primary"
                   >Edit Apartment</router-link
                 >
@@ -213,13 +213,15 @@ import { useAuthStore } from '@/store/auth';
 import ViewHook from "@module/propertyListing/components/ViewHook.vue";
 import ReviewForm from "@module/propertyListing/components/ReviewForm.vue";
 import Reviews from "@module/propertyListing/components/Reviews.vue";
+import { EvoUId } from '@/helpers'
 
 const apartmentsStore = useApartmentsStore();
 const authStore = useAuthStore();
 const route = useRoute();
+const evouid = new EvoUId()
 
 const data = computed(
-  () => apartmentsStore.get({ id: route.params.id })[0] ?? {}
+  () => apartmentsStore.get({ id: evouid.decode(route.params.id) })[0] ?? {}
 );
 </script>
 
