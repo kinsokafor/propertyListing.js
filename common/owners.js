@@ -1,7 +1,7 @@
 import MyApartments from './Apartments/MyApartments.vue'
 import New from './Apartments/New.vue'
 import EditApartment from './Apartments/EditApartment.vue'
-// import MyProperties from './Properties/MyProperties.vue'
+import MyProperties from './Properties/MyProperties.vue'
 import NewProperty from './Properties/New.vue'
 // import EditProperty from './Properties/EditProperty.vue'
 import {common as customers} from './customers'
@@ -30,6 +30,12 @@ export default [
         name: 'NewProperty',
         component: NewProperty,
         meta: { title: "New Property" }
+    },
+    {
+        path: '/my-properties',
+        name: 'MyProperties',
+        component: MyProperties,
+        meta: { title: "My Properties" }
     },
     ...customers
 ]

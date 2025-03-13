@@ -1,5 +1,5 @@
 <template>
-  <div class="check-out" @click="$router.push(`/apartment/${id}`)">
+  <div class="check-out" @click="$router.push(`/property/${id}`)">
     <div class="content mb-24">
       <div class="img-block position-relative">
         <img :src="data.images[0] ?? ''" alt="" />
@@ -10,7 +10,7 @@
           })
         }}</span>
       </div>
-      <a :href="`#/apartment/${id}`" class="title-text">{{ data.name }}</a>
+      <a :href="`#/property/${id}`" class="title-text">{{ data.name }}</a>
       <p>{{ data.location }}</p>
       <ul class="list-unstyled">
         <li>
@@ -27,7 +27,7 @@
         </li>
       </ul>
       <slot>
-        <a :href="`#/apartment/${id}`" class="real-btn bordered mb-24"
+        <a :href="`#/property/${id}`" class="real-btn bordered mb-24"
           >Details</a
         >
       </slot>

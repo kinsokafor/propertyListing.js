@@ -72,18 +72,23 @@ onMounted(() => {
 <style lang="scss" scoped>
 .house-detail-slider img,
 .house-detail-slider-nav img {
-  width: 100%; /* Ensures the image fills the container */
   object-fit: cover; /* Crop and fill without distortion */
   border-radius: 10px; /* Maintain your existing styling */
 }
 
 .house-detail-slider img {
-  height: 100vh; /* Set a fixed height or use `vh` based on your design */
+  width: 100%;
+  height: 100vh;
   max-height: 530px;
 }
 
 .house-detail-slider-nav img {
-  height: 20vh; /* Set a fixed height or use `vh` based on your design */
+  height: 20vh;
   max-height: 120px;
+  width: 94%;
+}
+
+.house-detail-slider-nav .item {
+    margin: 0 12px;
 }
 </style>
