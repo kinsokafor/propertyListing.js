@@ -2,8 +2,9 @@ import MyApartments from './Apartments/MyApartments.vue'
 import New from './Apartments/New.vue'
 import EditApartment from './Apartments/EditApartment.vue'
 import MyProperties from './Properties/MyProperties.vue'
+import OwnerSchedules from './Properties/OwnerSchedules.vue'
 import NewProperty from './Properties/New.vue'
-// import EditProperty from './Properties/EditProperty.vue'
+import EditProperty from './Properties/EditProperty.vue'
 import {common as customers} from './customers'
 
 export default [
@@ -18,6 +19,12 @@ export default [
         name: 'EditApartment',
         component: EditApartment,
         meta: { title: "Edit Apartment" }
+    },
+    {
+        path: '/property/edit/:id',
+        name: 'EditProperty',
+        component: EditProperty,
+        meta: { title: "Edit Property" }
     },
     {
         path: '/my-apartments',
@@ -36,6 +43,12 @@ export default [
         name: 'MyProperties',
         component: MyProperties,
         meta: { title: "My Properties" }
+    },
+    {
+        path: '/owner-schedules',
+        name: 'OwnerSchedules',
+        component: OwnerSchedules,
+        meta: { title: "My Schedules" }
     },
     ...customers
 ]

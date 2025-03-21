@@ -21,6 +21,15 @@
               surfix="Listing"
             ></counter-card
           ></router-link>
+          <router-link :to="`owner-schedules`">
+            <counter-card
+              :end-point="`api/dbtable/properties?owner_id=${user.id}`"
+              :template="Stats"
+              :icon-class="schedule"
+              title="Schedules"
+              surfix="Schedule"
+            ></counter-card
+          ></router-link>
         </div>
       </div>
       <div class="col-md-4">
@@ -65,6 +74,7 @@ import Stats from "@module/propertyListing/components/Stats.vue";
 import CounterCard from "@components/theme/CounterCard.vue";
 import dealIcon2 from "@module/propertyListing/assets/icon/deal-icon-2.png";
 import houseIcon2 from "@module/propertyListing/assets/icon/house-icon-2.png";
+import schedule from "@module/propertyListing/assets/icon/schedule.png";
 import apartments from "@module/propertyListing/assets/svg/apartments.svg";
 import loft from "@module/propertyListing/assets/svg/loft.svg";
 </script>

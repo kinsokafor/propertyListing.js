@@ -1,37 +1,45 @@
 <template>
-  <div class="row justify-content-around">
-    <div class="col-md-7">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">New Property</h5>
-          <CreateForm
-            :fields="fields"
-            @submit="handleSubmit"
-            :processing="processing"
-            :columns="{ top: 1, topAfter: 2, middle: 2 }"
-            :initialValues="{}"
-            @values="(v) => (values = v)"
-          >
-          </CreateForm>
+    <div class="row justify-content-around">
+      <div class="col-md-7">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Edit Property</h5>
+            <CreateForm
+              :fields="fields"
+              :initial-values="{}"
+              @submit="handleSubmit"
+              :processing="processing"
+              :columns="{ top: 1, topAfter: 2, middle: 3 }"
+              :initialValues="data"
+              @values="(v) => (values = v)"
+            >
+            </CreateForm>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-</template>
-
-<script setup>
-import { computed, ref } from "vue";
-import CreateForm from "@/components/form/CreateForm.vue";
-import * as yup from "yup";
-import { useAlertStore } from "@/store/alert";
-import { usePropertiesStore } from "@module/propertyListing/store/properties";
-
-const processing = ref(false);
-const alertStore = useAlertStore();
-const propertiesStore = usePropertiesStore();
-const values = ref({});
-
-const fields = computed(() => [
+  </template>
+  
+  <script setup>
+  import { computed, ref } from "vue";
+  import CreateForm from "@/components/form/CreateForm.vue";
+  import * as yup from "yup";
+  import { useAlertStore } from "@/store/alert";
+  import { usePropertiesStore } from "@module/propertyListing/store/properties";
+  import { useRoute } from "vue-router";
+  import { EvoUId } from '@/helpers'
+  
+  const evouid = new EvoUId()
+  const processing = ref(false);
+  const alertStore = useAlertStore();
+  const propertiesStore = usePropertiesStore();
+  const values = ref({});
+  const route = useRoute();
+  const data = computed(
+    () => propertiesStore.get({ id: evouid.decode(route.params.id) })[0] ?? {}
+  );
+  
+  const fields = computed(() => [
   {
     label: "Name of property",
     name: "name",
@@ -146,21 +154,21 @@ const fields = computed(() => [
     position: "middleAfter",
   },
 ]);
-
-const handleSubmit = (data, actions) => {
-  processing.value = true;
-  propertiesStore
-    .add(data)
-    .then((r) => {
-      processing.value = false;
-      actions.resetForm();
-      alertStore.add("Done");
-    })
-    .catch((e) => {
-      processing.value = false;
-      alertStore.add(e.response.data, "danger");
-    });
-};
-</script>
-
-<style lang="scss" scoped></style>
+  
+  const handleSubmit = (data, actions) => {
+    processing.value = true;
+    propertiesStore
+      .update(evouid.decode(route.params.id), data)
+      .then((r) => {
+        processing.value = false;
+        alertStore.add("Done");
+      })
+      .catch((e) => {
+        processing.value = false;
+        alertStore.add(e.response.data, "danger");
+      });
+  };
+  </script>
+  
+  <style lang="scss" scoped></style>
+  
