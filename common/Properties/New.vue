@@ -34,7 +34,7 @@ const values = ref({});
 const fields = computed(() => [
   {
     label: "Name of property",
-    name: "name",
+    name: "title",
     rules: yup.string().required(),
   },
   {

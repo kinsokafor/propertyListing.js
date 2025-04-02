@@ -3,6 +3,7 @@ import NotFound from '@/components/NotFound.vue'
 import Dashboard from '../views/Dashboard.vue'
 import admin from '../../common/admin';
 import owners from '../../common/owners';
+import invoiceRoutes from '@module/Invoice/IVXAdmin/router/routes'
 
 const router = createRouter({
     history: createWebHashHistory(),
@@ -18,6 +19,13 @@ const router = createRouter({
             component: Dashboard,
             meta: { title: "Dashboard" }
         },
+        ...invoiceRoutes.map(i => {
+            if(i.path === "/options") {
+                i.path = "/invoice/options"
+                i.name = "InvoiceOptions"
+            }
+            return i
+        }),
         ...admin,
         ...owners
     ]

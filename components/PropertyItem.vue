@@ -10,7 +10,7 @@
           })
         }}</span>
       </div>
-      <a :href="`#/property/${id}`" class="title-text">{{ data.name }}</a>
+      <a :href="`#/property/${id}`" class="title-text">{{ data.title }}</a>
       <p>{{ data.location }}</p>
       <ul class="list-unstyled">
         <li>

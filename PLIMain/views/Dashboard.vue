@@ -27,9 +27,20 @@
               :template="Stats"
               :icon-class="schedule"
               title="Schedules"
-              surfix="Schedule"
+              surfix="Appointment"
             ></counter-card
           ></router-link>
+          <restricted access="2">
+            <router-link :to="`invoices`">
+              <counter-card
+                :end-point="`api/dbtable/invoice`"
+                :template="Stats"
+                :icon-class="invoice"
+                title="Invoices"
+                surfix="Pending"
+              ></counter-card
+            ></router-link>
+          </restricted>
         </div>
       </div>
       <div class="col-md-4">
@@ -75,6 +86,7 @@ import CounterCard from "@components/theme/CounterCard.vue";
 import dealIcon2 from "@module/propertyListing/assets/icon/deal-icon-2.png";
 import houseIcon2 from "@module/propertyListing/assets/icon/house-icon-2.png";
 import schedule from "@module/propertyListing/assets/icon/schedule.png";
+import invoice from "@module/propertyListing/assets/icon/invoice.png";
 import apartments from "@module/propertyListing/assets/svg/apartments.svg";
 import loft from "@module/propertyListing/assets/svg/loft.svg";
 </script>

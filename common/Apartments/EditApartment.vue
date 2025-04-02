@@ -108,7 +108,6 @@ const fields = computed(() => [
 ]);
 
 const handleSubmit = (data, actions) => {
-  processing.value = true;
   apartmentsStore
     .update(evouid.decode(route.params.id), data)
     .then((r) => {

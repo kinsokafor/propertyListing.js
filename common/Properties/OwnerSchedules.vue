@@ -18,7 +18,8 @@
           </data-filter>
         </div>
         <div class="col-md-4">
-          
+          <h5>Unscheduled Appointments</h5>
+          <unscheduled-appointments></unscheduled-appointments>
         </div>
       </div>
     </restricted>
@@ -30,6 +31,7 @@
   import { computed } from "vue";
   import { usePropertiesStore } from "@module/propertyListing/store/properties";
   import DataFilter from "@filter/DataFilter.vue";
+  import UnscheduledAppointments from "@module/propertyListing/components/UnscheduledAppointments.vue";
   
   const authStore = useAuthStore();
   const propertiesStore = usePropertiesStore();

@@ -3,7 +3,7 @@
       <div class="row mb-24">
         <div class="col-12">
           <h2 class="fw-6 fs-40 ls-1 color-dark-2 text-uppercase mb-32">
-            {{ data.name }}
+            {{ data.title }}
           </h2>
           <slider v-if="data.images !== undefined" :images="data.images"></slider>
         </div>
@@ -12,7 +12,7 @@
         <div class="col-xl-4">
           <div class="contact mb-24">
             <h2 class="fw-5 fs-23 color-dark-2 font-sec mb-16">Schedule Visit</h2>
-            <book-apartment :data="data"></book-apartment>
+            <book-inspection :data="data"></book-inspection>
           </div>
           <div class="col-xl-12">
             <div class="detail bg-gray radius-10 mb-24 text-center pt-32">
@@ -201,7 +201,7 @@
   
   <script setup>
   import Slider from "@module/propertyListing/components/Slider.vue";
-  import BookApartment from "@module/propertyListing/components/BookApartment.vue";
+  import BookInspection from "@module/propertyListing/components/BookInspection.vue";
   import { computed } from "vue";
   import { usePropertiesStore } from "@module/propertyListing/store/properties";
   import { useRoute } from "vue-router";
