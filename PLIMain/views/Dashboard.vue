@@ -33,7 +33,7 @@
           <restricted access="2">
             <router-link :to="`invoices`">
               <counter-card
-                :end-point="`api/dbtable/invoice`"
+                :end-point="`api/dbtable/invoice?status=pending`"
                 :template="Stats"
                 :icon-class="invoice"
                 title="Invoices"
